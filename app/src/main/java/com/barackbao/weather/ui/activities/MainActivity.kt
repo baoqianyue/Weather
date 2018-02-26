@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.barackbao.weather.ui.adapters.ForecastListAdapter
 import com.barackbao.weather.R
+import com.barackbao.weather.domain.commands.RequestForecastCommand
 import com.barackbao.weather.toast
 import org.jetbrains.anko.custom.async
 import org.jetbrains.anko.uiThread
@@ -28,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val forecastList = findViewById<RecyclerView>(R.id.forecast_list)
         forecastList.layoutManager = LinearLayoutManager(this)
-        forecastList.adapter = ForecastListAdapter(items)
+        async(){
+            val result = RequestForecastCommand("94043").execute()
+            uiThread {
+                forecastList.adapter = ForecastListAdapter(result)
+                toast("加载中")
+            }
+        }
     }
 }

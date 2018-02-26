@@ -1,5 +1,6 @@
 package com.barackbao.weather.bean
 
+import com.barackbao.weather.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
 import com.barackbao.weather.domain.model.Forecast as ModelForecast
@@ -8,6 +9,11 @@ import com.barackbao.weather.domain.model.Forecast as ModelForecast
  * Created by BarackBao on 2018/2/26.
  */
 class ForecastDataMapper {
+
+    fun convertFromDataModel(forecast: ForecastResult):ForecastList{
+        return ForecastList(forecast.city.name,forecast.city.country,
+                convertForecastListToDomain(forecast.list))
+    }
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
         return list.map { convertForecastItemToDomain(it) }
