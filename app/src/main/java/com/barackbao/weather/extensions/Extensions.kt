@@ -1,4 +1,4 @@
-package com.barackbao.weather
+package com.barackbao.weather.extensions
 
 import android.content.Context
 import android.widget.Toast
